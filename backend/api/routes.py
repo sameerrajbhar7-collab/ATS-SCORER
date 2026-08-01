@@ -7,8 +7,13 @@ from models.schemas import ATSAnalysisResponse
 
 router = APIRouter()
 
-# Initialize OpenAI client
-client = OpenAI(api_key=settings.OPENAI_API_KEY)
+# Initialize OpenAI client gracefully
+client = None
+if settings.OPENAI_API_KEY:
+    try:
+        client = OpenAI(api_key=settings.OPENAI_API_KEY)
+    except Exception as e:
+        print(f"Error initializing OpenAI client: {e}")
 
 @router.post("/analyze", response_model=ATSAnalysisResponse)
 async def analyze_resume(
@@ -76,6 +81,8 @@ async def analyze_resume(
     user_prompt = f"### JOB DESCRIPTION:\n{job_description}\n\n### RESUME TEXT:\n{resume_text}"
 
     try:
+        if not client:
+            raise ValueError("OpenAI API key is missing. Please set the OPENAI_API_KEY environment variable.")
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
