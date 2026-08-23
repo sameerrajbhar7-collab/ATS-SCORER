@@ -1,6 +1,6 @@
 // DOM Elements & Helper
 const $ = (id) => document.getElementById(id);
-const API_URL = 'http://127.0.0.1:8000/api';
+const API_URL = '/api';
 
 const jdInput = $('jd-input'), charCounter = $('char-counter'), clearJdBtn = $('clear-jd');
 const dropZone = $('drop-zone'), fileInput = $('file-input'), fileInfo = $('file-info');
