@@ -1,4 +1,4 @@
-  // DOM Elements & Helper
+// DOM Elements & Helper
 const $ = (id) => document.getElementById(id);
 const API_URL = 'http://127.0.0.1:8000/api';
 
@@ -113,10 +113,10 @@ function renderDashboard(data) {
     gaugeProgress.className.baseVal = `circle ${score >= 80 ? 'gauge-high' : score >= 50 ? 'gauge-mid' : 'gauge-low'}`;
     matchBadge.className = `badge ${score >= 80 ? 'badge-success' : score >= 50 ? 'badge-warning' : 'badge-danger'}`;
     matchBadge.textContent = score >= 80 ? 'Great Match!' : score >= 50 ? 'Good Match!' : 'Poor Match!';
-    scoreDesc.textContent = score >= 80 
-        ? 'Your resume has a high match with the job description.' 
-        : score >= 50 ? 'Your resume matches several key requirements but has gaps.' 
-        : 'Your resume requires significant updates to match the job.';
+    scoreDesc.textContent = score >= 80
+        ? 'Your resume has a high match with the job description.'
+        : score >= 50 ? 'Your resume matches several key requirements but has gaps.'
+            : 'Your resume requires significant updates to match the job.';
 
     // B. Summaries Mapping
     const setFields = (obj, map) => Object.entries(map).forEach(([key, id]) => $(id).textContent = obj[key] ?? 'N/A');
@@ -128,8 +128,8 @@ function renderDashboard(data) {
     Object.entries(catMap).forEach(([key, id]) => {
         const ul = $(id);
         const list = missing[key] || [];
-        ul.innerHTML = list.length 
-            ? list.map(s => `<li>${s}</li>`).join('') 
+        ul.innerHTML = list.length
+            ? list.map(s => `<li>${s}</li>`).join('')
             : '<li style="color:var(--text-muted);list-style:none;padding-left:0;">None missing</li>';
     });
 
